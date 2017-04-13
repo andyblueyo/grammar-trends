@@ -9,10 +9,8 @@ grammar <- read.csv(file = "comma-survey-data.csv", stringsAsFactors = FALSE)
 
 shinyServer(function(input, output) {
   
-  output$view <- renderTable({
-    grammar
-    
-  
+  output$text1 <- renderText({
+    paste("Hello", input$selectSentence)
   })
   
   output$viewPlot <- renderPlot({

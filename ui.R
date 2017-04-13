@@ -1,12 +1,10 @@
 library(shiny)
-library(plotly)
 
 grammar <- read.csv(file = "comma-survey-data.csv", stringsAsFactors = FALSE)
 
 age.factors <- unique(grammar$Age)
 age.title <- c("30-44", "18-29", "NA", "Older than 60", "45-60")
 names(age.factors) <- age.title
-
 
 
 shinyUI(fluidPage(
@@ -22,11 +20,9 @@ shinyUI(fluidPage(
     radioButtons("radioAge", label = h3("Age"), choices = age.factors, selected = age.factors[2])),
     mainPanel(
       h1("Title"),
-      plotOutput("viewPlot")
+      plotOutput("viewPlot"),
+      textOutput("text1")
     )
   )
-  
- 
-  
   
 ))
