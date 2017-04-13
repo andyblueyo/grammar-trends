@@ -3,6 +3,12 @@ library(plotly)
 
 grammar <- read.csv(file = "comma-survey-data.csv", stringsAsFactors = FALSE)
 
+age.factors <- unique(grammar$Age)
+age.title <- c("30-44", "18-29", "NA", "Older than 60", "45-60")
+names(age.factors) <- age.title
+
+
+
 shinyUI(fluidPage(
   
   titlePanel("Grammar Trends"),
@@ -11,19 +17,13 @@ shinyUI(fluidPage(
   
   sidebarLayout(
     sidebarPanel(
-    checkboxGroupInput("checkage", label = h3("checkbox"), choices = unique(grammar$Age), selected = "30-44")),
+    selectInput("selectSentence", label = h3("Grammar Type"), choices = names(grammar)),
+    checkboxGroupInput("checkGender", label = h3("Gender"), choices = unique(grammar$Gender), selected = "Male"), 
+    radioButtons("radioAge", label = h3("Age"), choices = age.factors, selected = age.factors[2])),
     mainPanel(
-      titlePanel("Title"),
+      h1("Title"),
       plotOutput("viewPlot")
     )
-  ),
-  
-  mainPanel(
-    headerPanel("Table of Grammar"),
-    plotOutput("viewPlot")
-  ),
-  mainPanel(
-
   )
   
  
