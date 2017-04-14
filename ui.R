@@ -13,13 +13,18 @@ shinyUI(fluidPage(
                                                                           "Noun Plurality Sentence" = 'n.p.sentence',
                                                                           "Noun Plurality Preference" = 'n.p.feeling',
                                                                           "Grammar Preference" = 'g.feeling')),
-    checkboxGroupInput("checkGender", label = h3("Gender"), choices = c("Male" = 'Male', "Female" = 'Female'), selected = "Male"), 
+    radioButtons("radioEducation", label = h3("Education"), choices = c("Less than high school" = 'Less than high school degree', 
+                                                                        "High School Degree" = 'High school degree',
+                                                                        "Some College or Associate Degree" = 'Some college or Associate degree',
+                                                                        "Bachelor Degree" = 'Bachelor degree',
+                                                                        "Graduate Degree" = 'Graduate degree'), selected = "Less than high school degree"), 
     radioButtons("radioAge", label = h3("Age"), choices = c("18-29" = "18-29", "30-44" = "30-44", "45-60" = "45-60", "Older than 60" = "> 60"), selected = "18-29")),
     
     mainPanel(
       tabsetPanel(
         tabPanel("Plot", 
-                 h3("Title"),plotOutput("viewPlot"),
+                 h3("Title"),
+                 plotlyOutput("viewPlot"),
                  textOutput("text1")),
         tabPanel("Table", tableOutput("table"))
       

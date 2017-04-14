@@ -3,16 +3,24 @@ library(plotly)
 library(dplyr)
 library(ggplot2)
 library(tidyr)
+library(lazyeval)
 
 grammar <- read.csv(file = "comma-survey-data.csv", stringsAsFactors = FALSE)
 
-test3 <- edit.grammar %>% 
+var <- "o.c.sentence"
+
+stringsub <- gsub("o.c.s", "Oxford Comma S", var)
+
+print(var)
+typeof(var)
+test43 <- edit.grammar %>% 
           filter(age == "18-29") %>% 
-          select(o.c.sentence, gender) %>% 
-          group_by(o.c.sentence, gender) %>%
+          select_(var, "gender") %>% 
+          group_by_(var, "gender") %>%
           summarise(total = n())
 
-test2 <- spread(test3, gender, total) 
+test2 <- spread(test43, gender, total) 
+
 pls <- plot_ly(test2, x=~o.c.sentence, y=~Female, type = "bar", name = "female") %>% 
               add_trace(y = ~Male, name = "male") %>% 
               layout(yaxis = list(title = "Count"), barmode = 'group')
@@ -35,11 +43,11 @@ grammar3 <- grammar %>%
 
 colnames(grammar3) <- c("o.c.sentence", "o.c.feeling", "n.p.sentence", "n.p.feeling", "g.feeling", "gender", "age", "income", "education",
                         "Location")
-#write.csv(grammar3, file = "clean-grammar.csv")
+write.csv(grammar3, file = "clean-grammar.csv", row.names = FALSE)
 gender <- filter(grammar, Gender == "Male")
 
 test <- select(grammar, o.c.sentence)
-djsal <- plot_ly(grammar, )
+
 
 
 

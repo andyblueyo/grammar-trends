@@ -2,28 +2,43 @@ library(shiny)
 library(plotly)
 library(dplyr)
 library(ggplot2)
+library(lazyeval)
 
 grammar <- read.csv(file = "clean-grammar.csv", stringsAsFactors = FALSE, na.strings = c("", "NA"))
-edit.grammar <-na.omit(grammar)
-
+edit.grammar <- na.omit(grammar)
 
 
 shinyServer(function(input, output) {
-  selectedData <- reactive({
+  selected.data <- reactive({
+    filter.data <- edit.grammar %>% 
+      filter(age == input$radioAge) %>% 
+      filter(education == input$radioEducation) %>% 
+      select_(input$selectSentence, "gender") %>% 
+      group_by_(input$selectSentence, "gender") %>%
+      summarise( total = n())
     
+    long.data <- spread(filter.data, gender, total) 
+    no <- print(input$selectSentence)
+    print(typeof(no))
+    return(long.data)
   })
   
   output$text1 <- renderText({
-    paste("Hello", selectedData())
+    paste("Hello")
   })
   
-  output$viewPlot <- renderPlot({
-    ggplot(data = grammar) +
-      geom_bar(mapping = aes_string(x = input$selectSentence))
+  output$table <- renderTable({
+    out.data <- selected.data()
+    return(out.data)
+  })
+ 
+  
+  output$viewPlot <- renderPlotly({
+    selected.data() %>% 
+      plot_ly(x=~aes_string(input$selectSentence), y=~Female, type = "bar", name = "Female") %>% 
+      add_trace(y = ~Male, name = "Male") %>% 
+      layout(yaxis = list(title = "Count"), barmode = 'group', xaxis = list(title = input$selectSentence))
     
   }) 
-  
-
-  
   
 })
