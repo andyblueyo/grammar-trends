@@ -3,24 +3,24 @@ library(plotly)
 library(dplyr)
 library(ggplot2)
 
-grammar <- read.csv(file = "comma-survey-data.csv", stringsAsFactors = FALSE)
+grammar <- read.csv(file = "clean-grammar.csv", stringsAsFactors = FALSE, na.strings = c("", "NA"))
+edit.grammar <-na.omit(grammar)
 
 
 
 shinyServer(function(input, output) {
   selectedData <- reactive({
-    grammar[, input$selectSentence]
+    
   })
   
   output$text1 <- renderText({
-    paste("Hello", input$selectSentence)
+    paste("Hello", selectedData())
   })
   
   output$viewPlot <- renderPlot({
     ggplot(data = grammar) +
-      geom_bar(mapping = aes(x = How.would.you.write.the.following.sentence.))
+      geom_bar(mapping = aes_string(x = input$selectSentence))
     
-
   }) 
   
 

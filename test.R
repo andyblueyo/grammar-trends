@@ -2,8 +2,51 @@ library(shiny)
 library(plotly)
 library(dplyr)
 library(ggplot2)
+library(tidyr)
 
 grammar <- read.csv(file = "comma-survey-data.csv", stringsAsFactors = FALSE)
+
+test3 <- edit.grammar %>% 
+          filter(age == "18-29") %>% 
+          select(o.c.sentence, gender) %>% 
+          group_by(o.c.sentence, gender) %>%
+          summarise(total = n())
+
+test2 <- spread(test3, gender, total) 
+pls <- plot_ly(test2, x=~o.c.sentence, y=~Female, type = "bar", name = "female") %>% 
+              add_trace(y = ~Male, name = "male") %>% 
+              layout(yaxis = list(title = "Count"), barmode = 'group')
+              
+
+pls
+
+
+
+
+
+
+grammar3 <- grammar %>% 
+          select(In.your.opinion..which.sentence.is.more.gramatically.correct.,
+                 How.much..if.at.all..do.you.care.about.the.use..or.lack.thereof..of.the.serial..or.Oxford..comma.in.grammar.,
+                 How.would.you.write.the.following.sentence.,
+                 How.much..if.at.all..do.you.care.about.the.debate.over.the.use.of.the.word..data..as.a.singluar.or.plural.noun.,
+                 In.your.opinion..how.important.or.unimportant.is.proper.use.of.grammar.,
+                 Gender, Age, Household.Income, Education, Location..Census.Region.)
+
+colnames(grammar3) <- c("o.c.sentence", "o.c.feeling", "n.p.sentence", "n.p.feeling", "g.feeling", "gender", "age", "income", "education",
+                        "Location")
+#write.csv(grammar3, file = "clean-grammar.csv")
+gender <- filter(grammar, Gender == "Male")
+
+test <- select(grammar, o.c.sentence)
+djsal <- plot_ly(grammar, )
+
+
+
+
+
+
+
 
 grammar$Gender[grammar$Gender == ""] <- NA
 unique(grammar$Gender)
