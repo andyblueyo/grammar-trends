@@ -7,7 +7,7 @@ library(lazyeval)
 
 grammar <- read.csv(file = "comma-survey-data.csv", stringsAsFactors = FALSE)
 
-var <- "o.c.sentence"
+var <- "n.p.sentence"
 
 stringsub <- gsub("o.c.s", "Oxford Comma S", var)
 
@@ -21,7 +21,8 @@ test43 <- edit.grammar %>%
 
 test2 <- spread(test43, gender, total) 
 
-pls <- plot_ly(test2, x=~o.c.sentence, y=~Female, type = "bar", name = "female") %>% 
+
+pls <- plot_ly(test2, x=~test2[,1], y=~Female, type = "bar", name = "female") %>% 
               add_trace(y = ~Male, name = "male") %>% 
               layout(yaxis = list(title = "Count"), barmode = 'group')
               

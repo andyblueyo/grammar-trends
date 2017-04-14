@@ -30,8 +30,8 @@ shinyServer(function(input, output) {
  
   
   output$viewPlot <- renderPlotly({
-    selected.data() %>% 
-      plot_ly(x=~aes_string(input$selectSentence), y=~Female, type = "bar", name = "Female") %>% 
+      # x parameter not rendering correctly
+      plot_ly(selected.data(), x = ~aes_(input$selectSentence), y=~Female, type = "bar", name = "Female") %>% 
       add_trace(y = ~Male, name = "Male") %>% 
       layout(yaxis = list(title = "Count"), barmode = 'group', xaxis = list(title = input$selectSentence))
     
