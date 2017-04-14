@@ -18,7 +18,7 @@ no
 pie <- no + coord_polar("x", start=100)
 pie
 
-
+grammar.table <- filtered()
 
 
 

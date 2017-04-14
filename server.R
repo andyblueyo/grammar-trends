@@ -8,6 +8,9 @@ grammar <- read.csv(file = "comma-survey-data.csv", stringsAsFactors = FALSE)
 
 
 shinyServer(function(input, output) {
+  selectedData <- reactive({
+    grammar[, input$selectSentence]
+  })
   
   output$text1 <- renderText({
     paste("Hello", input$selectSentence)
@@ -16,7 +19,11 @@ shinyServer(function(input, output) {
   output$viewPlot <- renderPlot({
     ggplot(data = grammar) +
       geom_bar(mapping = aes(x = How.would.you.write.the.following.sentence.))
+    
+
   }) 
+  
+
   
   
 })

@@ -1,11 +1,5 @@
 library(shiny)
 
-grammar <- read.csv(file = "comma-survey-data.csv", stringsAsFactors = FALSE)
-
-age.factors <- unique(grammar$Age)
-age.title <- c("30-44", "18-29", "NA", "Older than 60", "45-60")
-names(age.factors) <- age.title
-
 
 shinyUI(fluidPage(
   
@@ -15,13 +9,20 @@ shinyUI(fluidPage(
   
   sidebarLayout(
     sidebarPanel(
-    selectInput("selectSentence", label = h3("Grammar Type"), choices = names(grammar)),
-    checkboxGroupInput("checkGender", label = h3("Gender"), choices = unique(grammar$Gender), selected = "Male"), 
-    radioButtons("radioAge", label = h3("Age"), choices = age.factors, selected = age.factors[2])),
+    selectInput("selectSentence", label = h3("Grammar Type"), choices = c("Oxford Comma Sentence" = "In.your.opinion..which.sentence.is.more.gramatically.correct.",
+                                                                          "Oxford Comma Preference" = "How.much..if.at.all..do.you.care.about.the.use..or.lack.thereof..of.the.serial..or.Oxford..comma.in.grammar.",
+                                                                          "Noun Plurality Sentence" = "How.would.you.write.the.following.sentence.",
+                                                                          "Noun Plurality Preference" = "How.much..if.at.all..do.you.care.about.the.debate.over.the.use.of.the.word..data..as.a.singluar.or.plural.noun.",
+                                                                          "Grammar Preference" = "In.your.opinion..how.important.or.unimportant.is.proper.use.of.grammar.")),
+    checkboxGroupInput("checkGender", label = h3("Gender"), choices = c("Male" = "Male", "Female" = "Female"), selected = "Male"), 
+    radioButtons("radioAge", label = h3("Age"), choices = c("18-29" = "18-29", "30-44" = "30-44", "45-60" = "45-60", "Older than 60" = "> 60"), selected = "18-29")),
     mainPanel(
-      h1("Title"),
-      plotOutput("viewPlot"),
-      textOutput("text1")
+      tabsetPanel(
+        tabPanel("Plot", 
+                 h3("Title"),plotOutput("viewPlot")),
+        tabPanel("Table", tableOutput("table"))
+      
+      )
     )
   )
   
