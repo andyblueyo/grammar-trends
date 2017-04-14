@@ -1,6 +1,7 @@
 library(shiny)
 library(plotly)
 library(dplyr)
+library(tidyr)
 library(ggplot2)
 library(lazyeval)
 
@@ -18,14 +19,9 @@ shinyServer(function(input, output) {
       summarise( total = n())
     
     long.data <- spread(filter.data, gender, total) 
-    no <- print(input$selectSentence)
-    print(typeof(no))
     return(long.data)
   })
   
-  output$text1 <- renderText({
-    paste("Hello")
-  })
   
   output$table <- renderTable({
     out.data <- selected.data()

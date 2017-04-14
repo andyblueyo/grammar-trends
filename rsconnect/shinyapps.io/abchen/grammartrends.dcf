@@ -2,9 +2,9 @@ name: grammartrends
 title: grammartrends
 account: abchen
 server: shinyapps.io
-appId: 171354
-bundleId: 784752
+appId: 172213
+bundleId: 789180
 url: https://abchen.shinyapps.io/grammartrends/
-when: 1491900787.05621
+when: 1492162455.80909
 asMultiple: FALSE
 asStatic: FALSE

@@ -1,4 +1,5 @@
 library(shiny)
+library(plotly)
 
 shinyUI(fluidPage(
   
@@ -23,9 +24,7 @@ shinyUI(fluidPage(
     mainPanel(
       tabsetPanel(
         tabPanel("Plot", 
-                 h3("Title"),
-                 plotlyOutput("viewPlot"),
-                 textOutput("text1")),
+                 plotlyOutput("viewPlot")),
         tabPanel("Table", tableOutput("table"))
       
       )
