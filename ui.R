@@ -6,6 +6,11 @@ shinyUI(fluidPage(
   titlePanel("Grammar Trends"),
   p("This shiny application is built to answer questions about grammar usage in terms of demographic and
       prefernces of grammar practices such as the oxford comma. This dataset is from fivethirtyeight."),
+  tags$li("The Oxford Comma and the Noun Plurality sentence asks participants which sentence they believed to be more gramatically correct."),
+  tags$li("The Oxford Prefernce asks participants how much they cared about the use of the oxford comma."),
+  tags$li("The Noun Plurality Preference asks participants how much they care about the proper usage of singular and plural verbs."),
+  tags$li("The Grammar Preference asks participants how important they belive the use of proper grammar is."),
+  p(" "),
   
   sidebarLayout(
     sidebarPanel(

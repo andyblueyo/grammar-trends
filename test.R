@@ -6,7 +6,7 @@ library(tidyr)
 library(lazyeval)
 
 grammar <- read.csv(file = "comma-survey-data.csv", stringsAsFactors = FALSE)
-
+View(grammar)
 var <- "n.p.sentence"
 
 stringsub <- gsub("o.c.s", "Oxford Comma S", var)
