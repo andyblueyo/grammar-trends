@@ -5,7 +5,8 @@ shinyUI(fluidPage(
   
   titlePanel("Grammar Trends"),
   p("This shiny application is built to answer questions about grammar usage in terms of demographic and
-      prefernces of grammar practices such as the oxford comma. This dataset is from fivethirtyeight."),
+      prefernces of grammar practices such as the oxford comma. This dataset is from", 
+      tags$a(href="https://github.com/fivethirtyeight/data/tree/master/comma-survey-data", "FiveThirtyEight's GitHub.")),
   tags$li("The Oxford Comma and the Noun Plurality sentence asks participants which sentence they believed to be more gramatically correct."),
   tags$li("The Oxford Prefernce asks participants how much they cared about the use of the oxford comma."),
   tags$li("The Noun Plurality Preference asks participants how much they care about the proper usage of singular and plural verbs."),
