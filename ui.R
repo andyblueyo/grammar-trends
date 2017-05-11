@@ -4,6 +4,7 @@ library(plotly)
 shinyUI(fluidPage(
   
   titlePanel("Grammar Trends"),
+  h5(em("Andrea Chen")),
   p("This shiny application is built to answer questions about grammar usage in terms of demographic and
       prefernces of grammar practices such as the oxford comma. This dataset is from", 
       tags$a(href="https://github.com/fivethirtyeight/data/tree/master/comma-survey-data", "FiveThirtyEight's GitHub.")),
